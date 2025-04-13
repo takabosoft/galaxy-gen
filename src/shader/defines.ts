@@ -13,6 +13,7 @@ uniform float u_armAlpha;
 uniform float u_armWidth;
 uniform float u_arms;
 uniform float u_stickRadius;
+uniform float u_armDistortion;
 uniform float u_spiralStrength;
 
 uniform int u_cloudMaxSteps;

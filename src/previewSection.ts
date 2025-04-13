@@ -18,9 +18,9 @@ export class PreviewSection {
     private readonly armAlphaSlider = $(`<input type="range" min="0.01" max="2.0" step="0.00001" value="0.3">`).on("input", () => this.preview());
     private readonly armWidthSlider = $(`<input type="range" min="0.01" max="5.0" step="0.00001" value="2.5">`).on("input", () => this.preview());
     private readonly armsSlider = $(`<input type="range" min="0.00" max="10.0" step="0.00001" value="2.0">`).on("input", () => this.preview());
-    private readonly spiralStrengthSlider = $(`<input type="range" min="-5.00" max="5.0" step="0.00001" value="3.4">`).on("input", () => this.preview());
+    private readonly spiralStrengthSlider = $(`<input type="range" min="-10.00" max="10.0" step="0.00001" value="3.4">`).on("input", () => this.preview());
+    private readonly armDistortionSlider = $(`<input type="range" min="0.00" max="1.0" step="0.00001" value="0.3">`).on("input", () => this.preview());
     private readonly stickRadiusSlider = $(`<input type="range" min="0.00" max="3.0" step="0.00001" value="0.0">`).on("input", () => this.preview());
-    
 
     readonly element = $(`<section>`).append(
         $(`<h2>`).text("【STEP.1】 各種設定を行ってください"),
@@ -39,6 +39,7 @@ export class PreviewSection {
                 $(`<div>`).text("腕の幅："), this.armWidthSlider,
                 $(`<div>`).text("腕の数："), this.armsSlider,
                 $(`<div>`).text("腕の回転："), this.spiralStrengthSlider,
+                $(`<div>`).text("腕の歪み："), this.armDistortionSlider,
                 $(`<div>`).text("棒状銀河："), this.stickRadiusSlider,
             ),
         ),
@@ -88,6 +89,7 @@ export class PreviewSection {
             armWidth: parseFloat(this.armWidthSlider.val() + ""),
             arms: parseFloat(this.armsSlider.val() + ""),
             spiralStrength: parseFloat(this.spiralStrengthSlider.val() + ""),
+            armDistortion: parseFloat(this.armDistortionSlider.val() + ""),
             stickRadius: parseFloat(this.stickRadiusSlider.val() + ""),
             
             cloudMaxSteps,

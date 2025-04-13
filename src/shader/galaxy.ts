@@ -46,7 +46,7 @@ float getStarsDensity(vec3 worldPos) {
     }
 
     // 半径FBM(重い)
-    float r = length(pos.xz) + fbm(pos, 0.65, 4.0, 1.0, 0.6) * 0.3;
+    float r = length(pos.xz) + fbm(pos, 0.65, 4.0, 1.0, 0.6) * u_armDistortion;
 
     // 半径マスク
     float radiusMask = (1.0 - smoothstep(0.8, 1.0, r / u_galaxyRadius));
@@ -141,7 +141,7 @@ vec4 getGalaxyComponentColor(vec3 pos) {
 }
 
 vec4 getGalaxy(Ray ray) {
-    float r2 = length(vec3(u_galaxyRadius + 0.3, u_galaxyHeight * 0.5, 0));
+    float r2 = length(vec3(u_galaxyRadius + u_armDistortion, u_galaxyHeight * 0.5, 0));
 
     float tMin, tMax;
     if (!intersectSphere(ray.origin, ray.direction, galaxyCenter, r2, tMin, tMax)) {
