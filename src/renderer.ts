@@ -12,6 +12,7 @@ export interface RendererParams {
     readonly armWidth: number;
     readonly arms: number;
     readonly spiralStrength: number;
+    readonly armDistortion: number;
     readonly stickRadius: number;
     readonly cloudMaxSteps: number;
     readonly fbmMaxSteps: number;
@@ -43,6 +44,7 @@ export class Renderer {
         { name: "u_armWidth", getValue: p => p.armWidth },
         { name: "u_arms", getValue: p => p.arms },
         { name: "u_spiralStrength", getValue: p => p.spiralStrength },
+        { name: "u_armDistortion", getValue: p => p.armDistortion },
         { name: "u_stickRadius", getValue: p => p.stickRadius },
     ];
     private readonly uniform1iInfos: readonly Uniform1iInfo[] = [
