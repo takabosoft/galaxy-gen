@@ -30,9 +30,8 @@ float fbm(vec3 p, float scaleBase, float scalePow, float depthBase, float depthP
 // 渦巻き共通処理
 float armDist(vec3 pos, float r) {
     float angle = atan(pos.z, pos.x);
-    float spiralStrength = -3.4;
     float r2 = u_stickRadius == 0.0 ? r : (smax(r - u_stickRadius, 0.0, 0.4));
-    float spiralAngle = mod(angle - r2 * spiralStrength, 2.0 * PI);
+    float spiralAngle = mod(angle + r2 * u_spiralStrength, 2.0 * PI);
     float armDist = abs(mod(spiralAngle * u_arms + PI, 2.0 * PI) - PI);
     return armDist;
 }
