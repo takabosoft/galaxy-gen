@@ -5,6 +5,7 @@ precision highp int;
 uniform vec2 u_resolution;
 uniform float u_cameraYRot;
 uniform float u_cameraXRot;
+uniform float u_cameraZRot;
 
 uniform int u_cloudMaxSteps;
 uniform int u_fbmMaxSteps;
