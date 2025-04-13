@@ -56,7 +56,7 @@ float getStarsDensity(vec3 worldPos) {
 
     // 腕マスク
     float armDist = armDist(pos, r);
-    float armMask = 0.5 + smoothstep(2.5, 0.0, armDist) * 0.9;
+    float armMask = 0.5 + smoothstep(u_armWidth, 0.0, armDist) * 0.9;
 
     return (snoise(pos * 100.0) * 0.5 + 0.5) * radiusMask * heightMask * armMask;
 }

@@ -9,6 +9,7 @@ export interface RendererParams {
     readonly galaxyRadius: number;
     readonly galaxyHeight: number;
     readonly armAlpha: number;
+    readonly armWidth: number;
     readonly arms: number;
     readonly spiralStrength: number;
     readonly stickRadius: number;
@@ -39,6 +40,7 @@ export class Renderer {
         { name: "u_galaxyRadius", getValue: p => p.galaxyRadius },
         { name: "u_galaxyHeight", getValue: p => p.galaxyHeight },
         { name: "u_armAlpha", getValue: p => p.armAlpha },
+        { name: "u_armWidth", getValue: p => p.armWidth },
         { name: "u_arms", getValue: p => p.arms },
         { name: "u_spiralStrength", getValue: p => p.spiralStrength },
         { name: "u_stickRadius", getValue: p => p.stickRadius },

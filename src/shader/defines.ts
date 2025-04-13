@@ -10,6 +10,7 @@ uniform float u_cameraDist;
 uniform float u_galaxyRadius;
 uniform float u_galaxyHeight;
 uniform float u_armAlpha;
+uniform float u_armWidth;
 uniform float u_arms;
 uniform float u_stickRadius;
 uniform float u_spiralStrength;
