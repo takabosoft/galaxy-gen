@@ -152,6 +152,9 @@ vec4 getGalaxy(Ray ray) {
     if (!intersectSphere(ray.origin, ray.direction, galaxyCenter, r2, tMin, tMax)) {
         return vec4(0.0);
     }
+
+    tMin = max(tMin, 0.001);
+    tMax = max(tMax, 0.001);
     
     float stepSize = (tMax - tMin) / float(u_cloudMaxSteps);
     vec3 p = rayAt(ray, tMin);
@@ -179,6 +182,6 @@ vec4 getGalaxy(Ray ray) {
         p += pStep;
     }
 
-    return vec4(finalColor.r, finalColor.g, finalColor.b, min(finalColor.a * 1.0, 1.0));
+    return vec4(finalColor.r, finalColor.g, finalColor.b, clamp(finalColor.a * 1.0, 0.0, 1.0));
 }
 `;
