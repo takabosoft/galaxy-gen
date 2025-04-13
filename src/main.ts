@@ -5,6 +5,7 @@
  */
 
 import { PreviewSection } from "./previewSection";
+import { ReadmeSection } from "./readmeSections";
 import { RenderSection } from "./renderSection";
 
 $(() => new PageController());
@@ -16,6 +17,7 @@ class PageController {
 
         $(document.body).append(
             $(`<main>`).append(
+                new ReadmeSection().element,
                 previewSection.element,
                 renderSection.element,
             ),
