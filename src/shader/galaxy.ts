@@ -126,7 +126,8 @@ vec4 getGalaxyComponentColor(vec3 pos) {
     float bulge = exp(-pow(distToCenter2 / bulgeRadius, 2.0)) * 1.5;
 
     // ハロー
-    float halo = exp(-distToCenter2 / haloFalloff) * 1.3;
+    //float halo = exp(-distToCenter2 / haloFalloff) * 1.3;
+    float halo = exp(-pow(distToCenter2 / haloFalloff, 1.5)) * 1.5;
 
     // ディスク（渦）
     float stars = getStarsDensity(pos) * 1.5;
@@ -139,7 +140,7 @@ vec4 getGalaxyComponentColor(vec3 pos) {
     vec3 color = bulgeColor * bulge + haloColor * halo + starsColor * stars;
 
     color = mix(color, vec3(0.2275, 0.0863, 0.0863), clamp(dust, 0.0, 1.0));
-    float alpha = (bulge * 0.3 + halo * 0.009 + stars * 0.3) * 10.0 + dust;
+    float alpha = (bulge * 0.3 + halo * 0.09 + stars * 0.3) * 10.0 + dust;
     return vec4(color, alpha);
 }
 
@@ -178,6 +179,6 @@ vec4 getGalaxy(Ray ray) {
         p += pStep;
     }
 
-    return vec4(finalColor.r, finalColor.g, finalColor.b, min(finalColor.a * 1.5, 1.0));
+    return vec4(finalColor.r, finalColor.g, finalColor.b, min(finalColor.a * 1.0, 1.0));
 }
 `;
