@@ -1,7 +1,6 @@
 export const galaxy = `
 const vec3 galaxyCenter = vec3(0.0, 0.0, 0.0);
 const float galaxyRadius = 3.0;
-const float galaxyHeight = 0.3;
 const vec3 bulgeColor = vec3(255.0 / 255.0, 187.0 / 255.0, 100.0 / 255.0); 
 const float bulgeRadius = 0.5;
 const float haloFalloff = 1.5;
@@ -45,7 +44,7 @@ float getStarsDensity(vec3 worldPos) {
     vec3 pos = worldPos;// - galaxyCenter;
     
     // 高さマスク（パッツン）
-    float heightMask = abs(pos.y) < (galaxyHeight * 0.5) ? 1.0 : 0.0;
+    float heightMask = abs(pos.y) < (u_galaxyHeight * 0.5) ? 1.0 : 0.0;
     if (heightMask < 0.01) {
         return 0.0;
     }
@@ -66,11 +65,12 @@ float getStarsDensity(vec3 worldPos) {
     return (snoise(pos * 100.0) * 0.5 + 0.5) * radiusMask * heightMask * armMask;
 }
 
+// ダスト・レーン
 float getDustsDensity(vec3 worldPos) {
     vec3 pos = worldPos;// - galaxyCenter;
 
     // 高さマスク（パッツン）
-    float heightMask = abs(pos.y) < (galaxyHeight * 0.5) ? 1.0 : 0.0;
+    float heightMask = abs(pos.y) < (u_galaxyHeight * 0.5) ? 1.0 : 0.0;
     if (heightMask < 0.01) {
         return 0.0;
     }
@@ -136,7 +136,7 @@ vec4 getGalaxyComponentColor(vec3 pos) {
     // ダスト（渦）
     float dust = getDustsDensity(pos);
 
-    // 合成（この場所における色とアルファを重ねる）
+    // 合成
     vec3 color = bulgeColor * bulge + haloColor * halo + starsColor * stars;
 
     color = mix(color, vec3(0.2275, 0.0863, 0.0863), clamp(dust, 0.0, 1.0));
@@ -145,8 +145,7 @@ vec4 getGalaxyComponentColor(vec3 pos) {
 }
 
 vec4 getGalaxy(Ray ray) {
-
-    float r2 = length(vec3(galaxyRadius + 0.3, galaxyHeight / 2.0, 0));
+    float r2 = length(vec3(galaxyRadius + 0.3, u_galaxyHeight * 0.5, 0));
 
     float tMin, tMax;
     if (!intersectSphere(ray.origin, ray.direction, galaxyCenter, r2, tMin, tMax)) {
@@ -166,15 +165,11 @@ vec4 getGalaxy(Ray ray) {
             break;
         }
  
-        // 各コンポーネントの色とアルファを取得
-        vec4 test = getGalaxyComponentColor(p); // 例：バルジ・ハローの色など
-        test.a *= stepSize;
+        vec4 color = getGalaxyComponentColor(p);
+        color.a *= stepSize;
+        finalColor.rgb += (1.0 - finalColor.a) * color.a * color.rgb;
+        finalColor.a += (1.0 - finalColor.a) * color.a;
 
-        // 合成
-        finalColor.rgb += (1.0 - finalColor.a) * test.a * test.rgb;
-        finalColor.a += (1.0 - finalColor.a) * test.a;
-
-        // 早期終了：完全に不透明なら
         if (finalColor.a > 0.99) { 
             break;
         }
