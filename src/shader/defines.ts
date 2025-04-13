@@ -8,6 +8,7 @@ uniform float u_cameraXRot;
 uniform float u_cameraZRot;
 uniform float u_cameraDist;
 uniform float u_galaxyHeight;
+uniform float u_armAlpha;
 
 uniform int u_cloudMaxSteps;
 uniform int u_fbmMaxSteps;
