@@ -16,6 +16,7 @@ export class PreviewSection {
     private readonly galaxyRadiusSlider = $(`<input type="range" min="2.0" max="5.0" step="0.00001" value="3.0">`).on("input", () => this.preview());
     private readonly galaxyHeightSlider = $(`<input type="range" min="0.1" max="1.0" step="0.00001" value="0.3">`).on("input", () => this.preview());
     private readonly armAlphaSlider = $(`<input type="range" min="0.01" max="2.0" step="0.00001" value="0.3">`).on("input", () => this.preview());
+    private readonly armWidthSlider = $(`<input type="range" min="0.01" max="5.0" step="0.00001" value="2.5">`).on("input", () => this.preview());
     private readonly armsSlider = $(`<input type="range" min="0.00" max="10.0" step="0.00001" value="2.0">`).on("input", () => this.preview());
     private readonly spiralStrengthSlider = $(`<input type="range" min="-5.00" max="5.0" step="0.00001" value="3.4">`).on("input", () => this.preview());
     private readonly stickRadiusSlider = $(`<input type="range" min="0.00" max="3.0" step="0.00001" value="0.0">`).on("input", () => this.preview());
@@ -35,6 +36,7 @@ export class PreviewSection {
                 $(`<div>`).text("銀河の半径："), this.galaxyRadiusSlider,
                 $(`<div>`).text("銀河の厚み："), this.galaxyHeightSlider,
                 $(`<div>`).text("腕の濃さ："), this.armAlphaSlider,
+                $(`<div>`).text("腕の幅："), this.armWidthSlider,
                 $(`<div>`).text("腕の数："), this.armsSlider,
                 $(`<div>`).text("腕の回転："), this.spiralStrengthSlider,
                 $(`<div>`).text("棒状銀河："), this.stickRadiusSlider,
@@ -83,6 +85,7 @@ export class PreviewSection {
             galaxyRadius: parseFloat(this.galaxyRadiusSlider.val() + ""),
             galaxyHeight: parseFloat(this.galaxyHeightSlider.val() + ""),
             armAlpha: parseFloat(this.armAlphaSlider.val() + ""),
+            armWidth: parseFloat(this.armWidthSlider.val() + ""),
             arms: parseFloat(this.armsSlider.val() + ""),
             spiralStrength: parseFloat(this.spiralStrengthSlider.val() + ""),
             stickRadius: parseFloat(this.stickRadiusSlider.val() + ""),
