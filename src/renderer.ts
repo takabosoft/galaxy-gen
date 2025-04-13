@@ -5,19 +5,37 @@ export interface RendererParams {
     readonly cameraYRot: number;
     readonly cameraXRot: number;
     readonly cameraZRot: number;
+    readonly cameraDist: number;
     readonly cloudMaxSteps: number;
     readonly fbmMaxSteps: number;
     readonly fbmMinSteps: number;
 }
 
+interface Uniform1fInfo {
+    readonly name: string;
+    readonly getValue: (params: RendererParams) => number;
+    location?: WebGLUniformLocation | null;
+}
+
+interface Uniform1iInfo {
+    readonly name: string;
+    readonly getValue: (params: RendererParams) => number;
+    location?: WebGLUniformLocation | null;
+}
+
 export class Renderer {
     readonly webGlCanvas: WebGLCanvas;
-    private cameraYRotUniformLocation!: WebGLUniformLocation | null;
-    private cameraXRotUniformLocation!: WebGLUniformLocation | null;
-    private cameraZRotUniformLocation!: WebGLUniformLocation | null;
-    private cloudMaxStepsUniformLocation!: WebGLUniformLocation | null;
-    private fbmMaxStepsUniformLocation!: WebGLUniformLocation | null;
-    private fbmMinStepsUniformLocation!: WebGLUniformLocation | null;
+    private readonly uniform1fInfos: readonly Uniform1fInfo[] = [
+        { name: "u_cameraYRot", getValue: p => p.cameraYRot },
+        { name: "u_cameraXRot", getValue: p => p.cameraXRot },
+        { name: "u_cameraZRot", getValue: p => p.cameraZRot },
+        { name: "u_cameraDist", getValue: p => p.cameraDist },
+    ];
+    private readonly uniform1iInfos: readonly Uniform1iInfo[] = [
+        { name: "u_cloudMaxSteps", getValue: p => p.cloudMaxSteps },
+        { name: "u_fbmMaxSteps", getValue: p => p.fbmMaxSteps },
+        { name: "u_fbmMinSteps", getValue: p => p.fbmMinSteps },
+    ];
 
     constructor(
         width: number, 
@@ -28,27 +46,19 @@ export class Renderer {
     }
 
     private setupUniformLocations() {
-        this.cameraYRotUniformLocation = this.webGlCanvas.getUniformLocation("u_cameraYRot");
-        this.cameraXRotUniformLocation = this.webGlCanvas.getUniformLocation("u_cameraXRot");
-        this.cameraZRotUniformLocation = this.webGlCanvas.getUniformLocation("u_cameraZRot");
-        this.cloudMaxStepsUniformLocation = this.webGlCanvas.getUniformLocation("u_cloudMaxSteps");
-        this.fbmMaxStepsUniformLocation = this.webGlCanvas.getUniformLocation("u_fbmMaxSteps");
-        this.fbmMinStepsUniformLocation = this.webGlCanvas.getUniformLocation("u_fbmMinSteps");
+        this.uniform1fInfos.forEach(info => info.location = this.webGlCanvas.getUniformLocation(info.name));
+        this.uniform1iInfos.forEach(info => info.location = this.webGlCanvas.getUniformLocation(info.name));
     }
 
-    render(params: RendererParams, renderYOffset = 0): void {
+    render(params: RendererParams): void {
         if (this.webGlCanvas.isContextLost) {
             this.webGlCanvas.setupWebGL();
             this.setupUniformLocations();
         }
 
-        this.webGlCanvas.uniform1f(this.cameraYRotUniformLocation, params.cameraYRot);
-        this.webGlCanvas.uniform1f(this.cameraXRotUniformLocation, params.cameraXRot);
-        this.webGlCanvas.uniform1f(this.cameraZRotUniformLocation, params.cameraZRot);
-        this.webGlCanvas.uniform1i(this.cloudMaxStepsUniformLocation, params.cloudMaxSteps);
-        this.webGlCanvas.uniform1i(this.fbmMaxStepsUniformLocation, params.fbmMaxSteps);
-        this.webGlCanvas.uniform1i(this.fbmMinStepsUniformLocation, params.fbmMinSteps);
-
+        this.uniform1fInfos.forEach(info => this.webGlCanvas.uniform1f(info.location!, info.getValue(params)));
+        this.uniform1iInfos.forEach(info => this.webGlCanvas.uniform1i(info.location!, info.getValue(params)));
+      
         this.webGlCanvas.render();
     }
 }

@@ -21,7 +21,7 @@ ${camera}
 ${galaxy}
 
 void main() {
-    vec3 from = vec3(0.0, 0.0, 5.0) * rotateX(u_cameraXRot) * rotateY(u_cameraYRot);
+    vec3 from = vec3(0.0, 0.0, u_cameraDist) * rotateX(u_cameraXRot) * rotateY(u_cameraYRot);
     cameraOrigin = from;
     vec3 lookAt = vec3(0.0, 0.0, 0.0);
     
