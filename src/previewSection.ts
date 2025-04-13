@@ -13,6 +13,7 @@ export class PreviewSection {
     private readonly cameraXRotSlider = $(`<input type="range" min="0.0" max="0.999" step="0.00001" value="0.3">`).on("input", () => this.preview());
     private readonly cameraZRotSlider = $(`<input type="range" min="-1.0" max="1.0" step="0.00001" value="0.0">`).on("input", () => this.preview());
     private readonly cameraDistSlider = $(`<input type="range" min="0.1" max="10.0" step="0.00001" value="5.0">`).on("input", () => this.preview());
+    private readonly galaxyRadiusSlider = $(`<input type="range" min="2.0" max="5.0" step="0.00001" value="3.0">`).on("input", () => this.preview());
     private readonly galaxyHeightSlider = $(`<input type="range" min="0.1" max="1.0" step="0.00001" value="0.3">`).on("input", () => this.preview());
     private readonly armAlphaSlider = $(`<input type="range" min="0.01" max="2.0" step="0.00001" value="0.3">`).on("input", () => this.preview());
     private readonly armsSlider = $(`<input type="range" min="0.00" max="10.0" step="0.00001" value="2.0">`).on("input", () => this.preview());
@@ -31,6 +32,7 @@ export class PreviewSection {
                 $(`<div>`).text("カメラ上下："), this.cameraXRotSlider,
                 $(`<div>`).text("カメラ傾き："), this.cameraZRotSlider,
                 $(`<div>`).text("カメラ距離："), this.cameraDistSlider,
+                $(`<div>`).text("銀河の半径："), this.galaxyRadiusSlider,
                 $(`<div>`).text("銀河の厚み："), this.galaxyHeightSlider,
                 $(`<div>`).text("腕の濃さ："), this.armAlphaSlider,
                 $(`<div>`).text("腕の数："), this.armsSlider,
@@ -78,6 +80,7 @@ export class PreviewSection {
             cameraXRot: -parseFloat(this.cameraXRotSlider.val() + "") * Math.PI / 2,
             cameraZRot: parseFloat(this.cameraZRotSlider.val() + "") * Math.PI / 2,
             cameraDist: parseFloat(this.cameraDistSlider.val() + ""),
+            galaxyRadius: parseFloat(this.galaxyRadiusSlider.val() + ""),
             galaxyHeight: parseFloat(this.galaxyHeightSlider.val() + ""),
             armAlpha: parseFloat(this.armAlphaSlider.val() + ""),
             arms: parseFloat(this.armsSlider.val() + ""),

@@ -6,6 +6,7 @@ export interface RendererParams {
     readonly cameraXRot: number;
     readonly cameraZRot: number;
     readonly cameraDist: number;
+    readonly galaxyRadius: number;
     readonly galaxyHeight: number;
     readonly armAlpha: number;
     readonly arms: number;
@@ -35,6 +36,7 @@ export class Renderer {
         { name: "u_cameraXRot", getValue: p => p.cameraXRot },
         { name: "u_cameraZRot", getValue: p => p.cameraZRot },
         { name: "u_cameraDist", getValue: p => p.cameraDist },
+        { name: "u_galaxyRadius", getValue: p => p.galaxyRadius },
         { name: "u_galaxyHeight", getValue: p => p.galaxyHeight },
         { name: "u_armAlpha", getValue: p => p.armAlpha },
         { name: "u_arms", getValue: p => p.arms },
