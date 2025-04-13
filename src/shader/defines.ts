@@ -7,6 +7,7 @@ uniform float u_cameraYRot;
 uniform float u_cameraXRot;
 uniform float u_cameraZRot;
 uniform float u_cameraDist;
+uniform float u_galaxyRadius;
 uniform float u_galaxyHeight;
 uniform float u_armAlpha;
 uniform float u_arms;

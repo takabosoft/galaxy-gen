@@ -1,6 +1,5 @@
 export const galaxy = `
 const vec3 galaxyCenter = vec3(0.0, 0.0, 0.0);
-const float galaxyRadius = 3.0;
 const vec3 bulgeColor = vec3(255.0 / 255.0, 187.0 / 255.0, 100.0 / 255.0); 
 const float bulgeRadius = 0.5;
 const float haloFalloff = 1.5;
@@ -50,7 +49,7 @@ float getStarsDensity(vec3 worldPos) {
     float r = length(pos.xz) + fbm(pos, 0.65, 4.0, 1.0, 0.6) * 0.3;
 
     // 半径マスク
-    float radiusMask = (1.0 - smoothstep(0.8, 1.0, r / galaxyRadius));
+    float radiusMask = (1.0 - smoothstep(0.8, 1.0, r / u_galaxyRadius));
     if (radiusMask < 0.01) {
         return 0.0;
     }
@@ -76,7 +75,7 @@ float getDustsDensity(vec3 worldPos) {
     float r = length(pos.xz) + fbm(pos, 0.65, 6.0, 1.0, 0.3) * 0.5;
 
     // 半径マスク
-    float radiusMask = smoothstep(0.5, 0.8, r / galaxyRadius) * (1.0 - smoothstep(0.8, 1.0, r / galaxyRadius));
+    float radiusMask = smoothstep(0.5, 0.8, r / u_galaxyRadius) * (1.0 - smoothstep(0.8, 1.0, r / u_galaxyRadius));
     if (radiusMask < 0.01) {
         return 0.0;
     }
@@ -142,7 +141,7 @@ vec4 getGalaxyComponentColor(vec3 pos) {
 }
 
 vec4 getGalaxy(Ray ray) {
-    float r2 = length(vec3(galaxyRadius + 0.3, u_galaxyHeight * 0.5, 0));
+    float r2 = length(vec3(u_galaxyRadius + 0.3, u_galaxyHeight * 0.5, 0));
 
     float tMin, tMax;
     if (!intersectSphere(ray.origin, ray.direction, galaxyCenter, r2, tMin, tMax)) {
