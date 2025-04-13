@@ -11,6 +11,7 @@ export class PreviewSection {
     readonly renderer = new Renderer(320, 240);
     private readonly cameraYRotSlider = $(`<input type="range" min="0.0" max="1.0" step="0.00001" value="0.0">`).on("input", () => this.preview());
     private readonly cameraXRotSlider = $(`<input type="range" min="0.0" max="0.999" step="0.00001" value="0.3">`).on("input", () => this.preview());
+    private readonly cameraZRotSlider = $(`<input type="range" min="-1.0" max="1.0" step="0.00001" value="0.0">`).on("input", () => this.preview());
 
     readonly element = $(`<section>`).append(
         $(`<h2>`).text("【STEP.1】 各種設定を行ってください"),
@@ -19,8 +20,9 @@ export class PreviewSection {
                 console.log(JSON.stringify(this.getRenderParams(RenderQuality.Low)));
             }),
             $(`<div class="params">`).append(
-                $(`<div>`).text("カメラ左右軸："), this.cameraYRotSlider,
-                $(`<div>`).text("カメラ上下軸："), this.cameraXRotSlider,
+                $(`<div>`).text("カメラ左右："), this.cameraYRotSlider,
+                $(`<div>`).text("カメラ上下："), this.cameraXRotSlider,
+                $(`<div>`).text("カメラ傾き："), this.cameraZRotSlider,
             ),
         ),
     );
@@ -61,6 +63,7 @@ export class PreviewSection {
         return {
             cameraYRot: parseFloat(this.cameraYRotSlider.val() + "") * Math.PI * 2,
             cameraXRot: -parseFloat(this.cameraXRotSlider.val() + "") * Math.PI / 2,
+            cameraZRot: parseFloat(this.cameraZRotSlider.val() + "") * Math.PI / 2,
             /*targetY: parseFloat(this.targetYSlider.val() + ""),
             cameraZ: parseFloat(this.cameraZSlider.val() + ""),
             cameraX: parseFloat(this.cameraXSlider.val() + ""),

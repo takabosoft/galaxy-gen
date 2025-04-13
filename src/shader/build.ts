@@ -22,10 +22,26 @@ ${galaxy}
 
 void main() {
     vec3 from = vec3(0.0, 0.0, 5.0) * rotateX(u_cameraXRot) * rotateY(u_cameraYRot);
-
     cameraOrigin = from;
     vec3 lookAt = vec3(0.0, 0.0, 0.0);
-    vec3 vUp = vec3(0.0, 1.0, 0.0) * rotateY(-u_cameraYRot * 0.1);
+    
+    vec3 forward = normalize(lookAt - from);
+
+// 基本の right と up ベクトル（ワールド基準）
+vec3 worldUp = vec3(0.0, 1.0, 0.0);
+vec3 right = normalize(cross(forward, worldUp));
+vec3 up = normalize(cross(right, forward));
+
+// カメラの up をロール角で回転
+mat2 roll = mat2(
+    cos(u_cameraZRot), -sin(u_cameraZRot),
+    sin(u_cameraZRot), cos(u_cameraZRot)
+);
+
+// ロールは right-up 平面上で回転なので 2D行列で適用
+vec2 rolled = roll * vec2(dot(right, worldUp), dot(up, worldUp));
+vec3 vUp = normalize(rolled.x * right + rolled.y * up);
+
     Ray ray = cameraGetRay(cameraOrigin, lookAt, vUp, 90.0);
 
     float brightness = 0.0;
