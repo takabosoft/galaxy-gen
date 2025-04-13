@@ -3,6 +3,7 @@ import { buildFragmentShader } from "./shader/build";
 
 export interface RendererParams {
     readonly cameraYRot: number;
+    readonly cameraXRot: number;
     readonly cloudMaxSteps: number;
     readonly fbmMaxSteps: number;
     readonly fbmMinSteps: number;
@@ -11,6 +12,7 @@ export interface RendererParams {
 export class Renderer {
     readonly webGlCanvas: WebGLCanvas;
     private cameraYRotUniformLocation!: WebGLUniformLocation | null;
+    private cameraXRotUniformLocation!: WebGLUniformLocation | null;
     private cloudMaxStepsUniformLocation!: WebGLUniformLocation | null;
     private fbmMaxStepsUniformLocation!: WebGLUniformLocation | null;
     private fbmMinStepsUniformLocation!: WebGLUniformLocation | null;
@@ -25,6 +27,7 @@ export class Renderer {
 
     private setupUniformLocations() {
         this.cameraYRotUniformLocation = this.webGlCanvas.getUniformLocation("u_cameraYRot");
+        this.cameraXRotUniformLocation = this.webGlCanvas.getUniformLocation("u_cameraXRot");
         this.cloudMaxStepsUniformLocation = this.webGlCanvas.getUniformLocation("u_cloudMaxSteps");
         this.fbmMaxStepsUniformLocation = this.webGlCanvas.getUniformLocation("u_fbmMaxSteps");
         this.fbmMinStepsUniformLocation = this.webGlCanvas.getUniformLocation("u_fbmMinSteps");
@@ -37,6 +40,7 @@ export class Renderer {
         }
 
         this.webGlCanvas.uniform1f(this.cameraYRotUniformLocation, params.cameraYRot);
+        this.webGlCanvas.uniform1f(this.cameraXRotUniformLocation, params.cameraXRot);
         this.webGlCanvas.uniform1i(this.cloudMaxStepsUniformLocation, params.cloudMaxSteps);
         this.webGlCanvas.uniform1i(this.fbmMaxStepsUniformLocation, params.fbmMaxSteps);
         this.webGlCanvas.uniform1i(this.fbmMinStepsUniformLocation, params.fbmMinSteps);
