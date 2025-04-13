@@ -14,6 +14,7 @@ export class PreviewSection {
     private readonly cameraZRotSlider = $(`<input type="range" min="-1.0" max="1.0" step="0.00001" value="0.0">`).on("input", () => this.preview());
     private readonly cameraDistSlider = $(`<input type="range" min="0.1" max="10.0" step="0.00001" value="5.0">`).on("input", () => this.preview());
     private readonly galaxyHeightSlider = $(`<input type="range" min="0.1" max="1.0" step="0.00001" value="0.3">`).on("input", () => this.preview());
+    private readonly armAlphaSlider = $(`<input type="range" min="0.01" max="2.0" step="0.00001" value="0.3">`).on("input", () => this.preview());
 
     readonly element = $(`<section>`).append(
         $(`<h2>`).text("【STEP.1】 各種設定を行ってください"),
@@ -27,6 +28,7 @@ export class PreviewSection {
                 $(`<div>`).text("カメラ傾き："), this.cameraZRotSlider,
                 $(`<div>`).text("カメラ距離："), this.cameraDistSlider,
                 $(`<div>`).text("銀河の厚み："), this.galaxyHeightSlider,
+                $(`<div>`).text("腕の濃さ："), this.armAlphaSlider,
             ),
         ),
     );
@@ -70,17 +72,8 @@ export class PreviewSection {
             cameraZRot: parseFloat(this.cameraZRotSlider.val() + "") * Math.PI / 2,
             cameraDist: parseFloat(this.cameraDistSlider.val() + ""),
             galaxyHeight: parseFloat(this.galaxyHeightSlider.val() + ""),
-            /*targetY: parseFloat(this.targetYSlider.val() + ""),
-            cameraZ: parseFloat(this.cameraZSlider.val() + ""),
-            cameraX: parseFloat(this.cameraXSlider.val() + ""),
-            cloudMinY: parseFloat(this.minYSlider.val() + ""),
-            cloudThickness: parseFloat(this.thicknessSlider.val() + ""),
-            cloudAlphaScale: parseFloat(this.alphaScaleSlider.val() + ""),
-            fbmScale: parseFloat(this.fbmScaleSlider.val() + ""),
-            fbmDepth: parseFloat(this.fbmDepthSlider.val() + ""),
-            fbmThreshold: parseFloat(this.fbmThresholdSlider.val() + ""),
-            skyColorFader: parseFloat(this.skyColorFaderSlider.val() + ""),
-*/
+            armAlpha: parseFloat(this.armAlphaSlider.val() + ""),
+            
             cloudMaxSteps,
             fbmMaxSteps,
             fbmMinSteps,

@@ -140,7 +140,7 @@ vec4 getGalaxyComponentColor(vec3 pos) {
     vec3 color = bulgeColor * bulge + haloColor * halo + starsColor * stars;
 
     color = mix(color, vec3(0.2275, 0.0863, 0.0863), clamp(dust, 0.0, 1.0));
-    float alpha = (bulge * 0.3 + halo * 0.09 + stars * 0.3) * 10.0 + dust;
+    float alpha = (bulge * 0.3 + halo * 0.09 + stars * u_armAlpha) * 10.0 + dust;
     return vec4(color, alpha);
 }
 
