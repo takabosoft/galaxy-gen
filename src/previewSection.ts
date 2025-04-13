@@ -28,33 +28,33 @@ export class PreviewSection {
     }
 
     getRenderParams(quality: RenderQuality): RendererParams {
-        /*let cloudMaxSteps = 0;
+        let cloudMaxSteps = 0;
         let fbmMaxSteps = 0;
         let fbmMinSteps = 0;
 
         switch (quality) {
             case RenderQuality.Low:
-                cloudMaxSteps = 40;
-                fbmMaxSteps = 10;
+                cloudMaxSteps = 60;
+                fbmMaxSteps = 3;
                 fbmMinSteps = 2;
                 break;
             default:
             case RenderQuality.Medium:
-                cloudMaxSteps = 100;
-                fbmMaxSteps = 10;
+                cloudMaxSteps = 200;
+                fbmMaxSteps = 3;
                 fbmMinSteps = 2;
                 break;
             case RenderQuality.High:
                 cloudMaxSteps = 300;
-                fbmMaxSteps = 12;
-                fbmMinSteps = 6;
+                fbmMaxSteps = 6;
+                fbmMinSteps = 4;
                 break;
             case RenderQuality.Max:
                 cloudMaxSteps = 500;
-                fbmMaxSteps = 20;
-                fbmMinSteps = 10;
+                fbmMaxSteps = 12;
+                fbmMinSteps = 8;
                 break;
-        }*/
+        }
 
         return {
             cameraYRot: parseFloat(this.cameraYRotSlider.val() + "") * Math.PI * 2,
@@ -68,10 +68,10 @@ export class PreviewSection {
             fbmDepth: parseFloat(this.fbmDepthSlider.val() + ""),
             fbmThreshold: parseFloat(this.fbmThresholdSlider.val() + ""),
             skyColorFader: parseFloat(this.skyColorFaderSlider.val() + ""),
-
+*/
             cloudMaxSteps,
             fbmMaxSteps,
-            fbmMinSteps,*/
+            fbmMinSteps,
         }
     }
 

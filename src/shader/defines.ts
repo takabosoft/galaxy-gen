@@ -5,5 +5,9 @@ precision highp int;
 uniform vec2 u_resolution;
 uniform float u_cameraYRot;
 
+uniform int u_cloudMaxSteps;
+uniform int u_fbmMaxSteps;
+uniform int u_fbmMinSteps;
+
 const float PI = 3.14159265359;
 `;
