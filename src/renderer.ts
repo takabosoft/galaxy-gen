@@ -8,6 +8,7 @@ export interface RendererParams {
     readonly cameraDist: number;
     readonly galaxyHeight: number;
     readonly armAlpha: number;
+    readonly arms: number;
     readonly cloudMaxSteps: number;
     readonly fbmMaxSteps: number;
     readonly fbmMinSteps: number;
@@ -34,6 +35,7 @@ export class Renderer {
         { name: "u_cameraDist", getValue: p => p.cameraDist },
         { name: "u_galaxyHeight", getValue: p => p.galaxyHeight },
         { name: "u_armAlpha", getValue: p => p.armAlpha },
+        { name: "u_arms", getValue: p => p.arms },
     ];
     private readonly uniform1iInfos: readonly Uniform1iInfo[] = [
         { name: "u_cloudMaxSteps", getValue: p => p.cloudMaxSteps },
